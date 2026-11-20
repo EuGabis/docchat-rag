@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DocChat RAG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">Doc<span>Chat</span></div>
+        <div class="tagline">RAG com PostgreSQL + pgvector + Claude</div>
+      </div>
+
+      <div class="status" id="status">
+        <span class="pill" id="llm-pill">verificando…</span>
+        <span class="pill muted" id="stats-pill">—</span>
+      </div>
+
+      <section class="panel">
+        <h2>Busca</h2>
+        <div class="segmented" id="mode">
+          <button data-mode="hybrid" class="active" title="Vetorial + palavra-chave, fundidas com RRF">Híbrida</button>
+          <button data-mode="vector" title="Só similaridade de embeddings (pgvector)">Vetorial</button>
+          <button data-mode="keyword" title="Só full-text search em português">Palavra-chave</button>
+        </div>
+      </section>
+
+      <section class="panel grow">
+        <h2>Documentos</h2>
+        <ul class="docs" id="docs"></ul>
+        <label class="drop" id="drop">
+          <input type="file" id="file" accept=".pdf,.md,.markdown,.txt" hidden>
+          <strong>Adicionar documento</strong>
+          <span>PDF, Markdown ou TXT — clique ou arraste aqui</span>
+        </label>
+        <div class="upload-msg" id="upload-msg"></div>
+      </section>
+
+      <footer class="credits">
+        Projeto de portfólio de <a href="https://www.linkedin.com/in/gabriel-marcelo-dev" target="_blank" rel="noopener">Gabriel Marcelo</a>
+      </footer>
+    </aside>
+
+    <main class="chat">
+      <div class="thread" id="thread">
+        <div class="empty" id="empty">
+          <h1>Pergunte aos seus <span class="grad">documentos</span>.</h1>
+          <p>A base de exemplo é de uma escola de aviação fictícia. Cada resposta mostra de onde veio a informação e como a busca chegou nela.</p>
+          <div class="suggestions" id="suggestions">
+            <button>Quanto custa o curso de Piloto Privado completo?</button>
+            <button>Quais documentos preciso levar para a matrícula?</button>
+            <button>Posso cancelar uma aula de voo no dia anterior?</button>
+            <button>Como tiro a segunda via do boleto?</button>
+            <button>Comissário de voo precisa saber nadar?</button>
+          </div>
+        </div>
+      </div>
+
+      <form class="composer" id="composer">
+        <textarea id="question" rows="1" placeholder="Faça uma pergunta sobre os documentos…" required></textarea>
+        <button type="submit" id="send" aria-label="Enviar pergunta">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 11.5 21 3l-8.5 18-2-7.5L3 11.5Z" fill="currentColor"/></svg>
+        </button>
+      </form>
+    </main>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
